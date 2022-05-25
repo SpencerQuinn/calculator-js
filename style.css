@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+:root{
+    --calc--font: 'Orbitron', sans-serif;
+}
+*, *::after, *::before{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: antiquewhite;
+    display: flex;
+    justify-content: center;
+}
+
+button{
+    border-style: none;
+    background-color: blue;
+    color: white;
+    box-shadow: 2px 2px 0px black;
+}
+
+.calculator-body{
+    margin-top: 50px;
+    border: 10px solid rgb(0, 0, 0);
+    background-color: rgb(124 127 123);
+    border-radius: 20px;
+    width: 300px;
+    height: 400px;
+    gap: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.display{
+    text-align: right;
+    height: 55px;
+    border: 1px black solid;
+    background-color: white;
+    width: 75%;
+    margin-bottom: 20%;
+    line-height: 100%;
+    font-family: var(--calc--font);
+    font-size: 50px;
+}
+
+.button-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+}
+.buttons{
+    display: grid;
+}
+.buttons.operators{
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    
+}
+
+.buttons.operators button{
+    background-color: blue;
+}
+
+.buttons.numeric{
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(1fr, 4);
+    gap: 10px;
+}
+
+.buttons > button{
+    width: 50px;
+    height: auto;
+    background-color: aqua;
+}
+.zero{
+    width: 100%;
+}

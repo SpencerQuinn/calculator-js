@@ -1,1 +1,1 @@
-# calculator-js
+Final project in the foundations course!
