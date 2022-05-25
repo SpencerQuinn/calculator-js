@@ -3,6 +3,7 @@ const numberButtons = document.querySelectorAll('.number-button')
 const operatorButtons = document.querySelectorAll('.operator-button')
 const clearButton = document.querySelector('.clear')
 const equalButton = document.querySelector('.equals')
+const decimalButton = document.querySelector('.dec')
 
 
 let brain = {
@@ -56,6 +57,10 @@ numberButtons.forEach(num => num.addEventListener('click', function(){
     brain.currentVal = display.textContent
     console.log(brain.currentVal)
 }))
+
+decimalButton.addEventListener('click', function(){
+    display.textContent += '.'
+})
 
 
 // Clear Display
