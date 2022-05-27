@@ -6,6 +6,8 @@ const equalButton = document.querySelector('.equals')
 const decimalButton = document.querySelector('.dec')
 
 
+
+
 let brain = {
     logicHistory: [],
     prevVal: '',
