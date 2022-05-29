@@ -7,19 +7,16 @@ const decimalButton = document.querySelector('.dec')
 const equalPushed = false
 
 
+let currentOperator = ""
+let valueA = '', valueAInt = parseFloat(valueA)
+let valueB = '', valueBInt = parseFloat(valueB)
 
+const add = (a,b) => a + b
+const sub = (a,b) => a - b
+const mult = (a,b) => a * b
+const dvd = (a,b) => a / b
 
-let brain = {
-    logicHistory: [],
-    prevVal: '',
-    currentVal: '',
-    operand: '',
-
-}
-
-let operratorButtonPushed = false
-
-const opperations = {
+const operationsObj = {
     "+": add,
     "-": sub,
     "*": mult,
@@ -27,141 +24,117 @@ const opperations = {
 }
 
 
+let operratorButtonPushed = false
+let equalButtonPushed = false
 
 
-operatorButtons.forEach(op => op.addEventListener('click', function(e){
-    if(brain.operand == '' && !equalPushed){
-    logOperations(e)
-    brain.prevVal = brain.currentVal
-    display.textContent = brain.prevVal
-    operratorButtonPushed = !operratorButtonPushed
-    return
-    }
-    
-    brain.prevVal = performOperation(Number(brain.prevVal), Number(brain.currentVal), brain.operand);
-    display.textContent = brain.prevVal
-    logOperations(e)
-    console.log(brain)
-    operratorButtonPushed = !operratorButtonPushed
+operatorButtons.forEach(butt => butt.addEventListener('click', operatorPushHandler))
+
+numberButtons.forEach(num => num.addEventListener('click', numberPushHandler))
+
+numberButtons.forEach(num => num.addEventListener('click', clickEffect))
+
+numberButtons.forEach(num => num.addEventListener('transitionend', function(){
+    this.classList.remove('pushed')
 }))
 
-equalButton.addEventListener('click', equalButtonPress)
 
+clearButton.addEventListener('click', clearButtonHandler)
 
+equalButton.addEventListener('click', equalButtonHandler)
 
+equalButton.addEventListener('click', clickEffect)
 
-// Numbers displayed listener
-numberButtons.forEach(num => num.addEventListener('click', function(){
-    if(operratorButtonPushed){
-        display.textContent = ''
-        operratorButtonPushed = !operratorButtonPushed
-    }
-    if(display.textContent.length >= 9) return
-    display.textContent += this.dataset.number
-    brain.currentVal = display.textContent
-    console.log(brain.currentVal)
-}))
-
-decimalButton.addEventListener('click', function(e){
-    if(operratorButtonPushed){
-        display.textContent = ''
-        operratorButtonPushed = !operratorButtonPushed
-    }
-    if(display.textContent.length >= 9) return
-    display.textContent += "."
-    brain.currentVal = display.textContent
-    console.log(brain.currentVal)
+equalButton.addEventListener('transitionend', function(){
+    this.classList.remove('pushed')
 })
 
-
-// Clear Display
-clearButton.addEventListener('click', function(){
-    clearLogic()
-    clearDisplay()
-})
-
-function clearDisplay(){
-    display.textContent = '';
-    brain.currentVal = ''
-}
-
-function clearLogic(){
-    brain.logicHistory = []
-    brain.prevVal = ''
-    brain.currentVal = ''
-    brain.operand = ''
-    console.log("ClearButton pushed", brain)
-}
-
-// Operations
-
-function logOperations(e){
-    let currentOperand = e.target.textContent
-    brain.operand = currentOperand
-    console.log(brain)
-
-}
-
+// ARITHMATIC
 function performOperation(a, b, op){
-    return Math.round((opperations[op](Number(a),Number(b)))*100)/100
+    let result = operationsObj[op](Number(a), Number(b));
+    return Math.round(result*100)/100
 }
 
-function equalButtonPress(){
-    if(brain.prevVal == '') return
-    let result = performOperation(Number(brain.prevVal), Number(brain.currentVal), brain.operand)
-    console.log("Hello", answerLengthAdjust(result))
-    brain.prevVal = result
-    brain.currentVal = ''
-    brain.operand = ''
-    display.textContent = answerLengthAdjust(Number(brain.prevVal))
-    console.log(brain)
-    equalPushed = true
+function lengthCheckForDisplay(num){
+    if(String(num).length <= 9)return num
+    
+    let numInt = Number(num);
+
+    // Get rid of decimals
+    let roundedNum = String(Math.round(numInt))
+
+    // Log total exponants after decimal
+    let zeros = roundedNum.length - 1
+
+   
+    return `${roundedNum.slice(0,1)}.${roundedNum.slice(1,5)}e${zeros}`
 
 }
 
-
-// Arithmatic functions
-
-function add(a, b){
-    return a + b
+function clearButtonHandler(){
+    display.textContent = ''
+    valueA = ''
+    valueB = ''
+    currentOperator = ''
+    operratorButtonPushed = false
+    equalButtonPushed = false
 }
 
-function sub(a, b){
-    return a - b;
-}
-
-function mult(a, b){
-    return a * b
-}
-
-function dvd(a, b){
-    return a / b;
-}
-
-function answerLengthAdjust(num){
-    let zeros = 0;
-    if(String(num).length > 9){
-        let newNum = num
-       while(newNum % 10 == 0){
-           newNum /= 10
-           zeros+=1
-           console.log(newNum, num)
-       }
-       if(String(newNum).length > 6){
-           let roundingamount = String(newNum).length - 6
-           zeros += roundingamount
-           newNum = Math.round(newNum / 10**roundingamount)
-       }
-       console.log("zeros", zeros, "newNum", newNum)
-       zeros += String(newNum).length - 1
-       newNum = newNum / (10**(String(newNum).length - 1))
-       console.log("finalzeros", zeros, "finalnewNum", newNum)
-       return `${newNum}e${zeros}`
+function operatorPushHandler(){
+    if(equalButtonPushed){
+        currentOperator = this.textContent
+        valueA = ''
+        equalButtonPushed = false
+        operratorButtonPushed = true
+        console.log(valueA, valueB, currentOperator)
+        displayResult(valueB)
+        return
     }
-    return num
+    if(operratorButtonPushed){
+        currentOperator = this.textContent
+        console.log("Current Op",  currentOperator)
+        return
+    }
+    valueB = valueB == '' ? valueA : performOperation(valueB, valueA, currentOperator)
+    valueA = ''
+    displayResult(valueB)
+    currentOperator = this.textContent
+    operratorButtonPushed = true
 }
 
-//Visual Funcitons
+function numberPushHandler(event){
+
+    if(equalButtonPushed) clearButtonHandler()
+    if(operratorButtonPushed){
+        valueA = ''
+        display.textContent = valueA
+        operratorButtonPushed = false
+    }
+    if(display.textContent.length == 9) return
+    valueA += event.target.textContent
+    display.textContent = valueA
+}
+
+function equalButtonHandler(){
+    equalButtonPushed = true
+    operratorButtonPushed = false
+    valueB = performOperation(valueB, valueA, currentOperator)
+    displayResult(valueB)
+}
+
+function displayResult(result){
+    display.textContent = lengthCheckForDisplay(result)
+}
+
+function clickEffect(){
+    this.classList.add('pushed')
+    
+}
+
+
+
+
+
 
 
 

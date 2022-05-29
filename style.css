@@ -16,8 +16,8 @@ button{
     border-style: none;
     background-color: blue;
     color: white;
-    box-shadow: 2px 2px 0px black;
-    font-size: 60%;
+    box-shadow: 3px 3px 0px black;
+    font-size: 14px;
 }
 
 .calculator-body{
@@ -67,12 +67,6 @@ button{
     
 }
 
-.buttons.operators button{
-    background-color: blue;
-    width: 100%;
-    height: 100%;
-}
-
 .buttons.numeric{
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: repeat(1fr, 4);
@@ -80,11 +74,40 @@ button{
     width: 75%;
 }
 
-.buttons > button{
-    width: 100%;
-    height: auto;
-    background-color: aqua;
+.operator-button{
+    background-color: blue;
+    width: 4em;
+    height: 3em;
+    transition: all .1s;
 }
-.zero{
-    width: 100%;
+
+.number-button{
+    background-color: aquamarine;
 }
+
+.number-button, .equals{
+    width: 4em;
+    height: 4em;
+    transition: all .1s;
+}
+
+.equals{
+    background-color: blue;
+}
+
+.number-button.pushed, .operator-button.pushed, .equals.pushed{
+    border: 1px white solid;
+    transform: translate(2px, 2px);
+    box-shadow: none;
+    transition: all .1s;
+}
+
+
+
+.clear{
+    width: 4em;
+    height: 3em;
+    background-color: rgb(204, 192, 29);
+}
+
+
