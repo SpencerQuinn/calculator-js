@@ -25,35 +25,65 @@ button{
     border: 5px solid rgb(0, 0, 0);
     background-color: rgb(124 127 123);
     border-radius: 20px;
-    width: 300px;
+    width: 500px;
     height: 400px;
    
     
 }
 
+.display-operators{
+    display: flex;
+    gap: 10px;
+}
+
 .display{
+    display: inline-block;
     text-align: right;
     height: 55px;
     border: 1px black solid;
     background-color: white;
-    width: 90%;
+    width: 400px;
     margin-bottom: 30px;
     line-height: 10vh;
     font-family: var(--calc--font);
     font-size: 34px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 10px;
+    margin-right: 10px;
     margin-top: 30px;
     overflow: visible;
 }
 
+.operator-lights-container{
+    height: auto;
+    width: 100px;
+    display: inline-flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.operator-lights-container > div{
+    height: 50%;
+    width: 50%;
+    text-align: center;
+    font-size: 32px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.top-light{
+    padding-top: 20%;
+}
+
+.bottom-light{
+    padding-bottom: 20%;
+}
+
 .button-container{
     display: flex;
-    justify-content: center;
-    width: 100%;
+    justify-content: flex-start;
+    width: 400px;
     height: 65%;
-    gap: 10px;
     padding: 0px 10px 10px;
+    margin-left: 10px;
     
 }
 .buttons{
@@ -63,7 +93,7 @@ button{
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     gap: 10px;
-    width: 25%;
+    width: 100px;
     
 }
 
@@ -71,7 +101,7 @@ button{
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: repeat(1fr, 4);
     gap: 10px;
-    width: 75%;
+    width: 300px;
 }
 
 .operator-button{
