@@ -81,18 +81,19 @@ function clearButtonHandler(){
 }
 
 function operatorPushHandler(){
+    
     if(equalButtonPushed){
         currentOperator = this.textContent
+        operratorButtonPushed = true
+        operatorLight()
         valueA = ''
         equalButtonPushed = false
-        operratorButtonPushed = true
-        console.log(valueA, valueB, currentOperator)
         displayResult(valueB)
         return
     }
-    if(operratorButtonPushed){
+    else if(operratorButtonPushed){
         currentOperator = this.textContent
-        console.log("Current Op",  currentOperator)
+        operatorLight()
         return
     }
     valueB = valueB == '' ? valueA : performOperation(valueB, valueA, currentOperator)
@@ -100,17 +101,22 @@ function operatorPushHandler(){
     displayResult(valueB)
     currentOperator = this.textContent
     operratorButtonPushed = true
+    operatorLight()
+   
+    
 }
 
 function numberPushHandler(event){
 
-    if(equalButtonPushed) clearButtonHandler()
-    if(operratorButtonPushed){
+    if(equalButtonPushed){
+        clearButtonHandler()
+    }
+    else if(operratorButtonPushed){
         valueA = ''
         display.textContent = valueA
         operratorButtonPushed = false
     }
-    if(display.textContent.length == 9) return
+    else if(display.textContent.length == 9) return
     valueA += event.target.textContent
     display.textContent = valueA
 }
@@ -118,6 +124,7 @@ function numberPushHandler(event){
 function equalButtonHandler(){
     equalButtonPushed = true
     operratorButtonPushed = false
+    operatorLight()
     valueB = performOperation(valueB, valueA, currentOperator)
     displayResult(valueB)
 }
@@ -128,6 +135,14 @@ function displayResult(result){
 
 function clickEffect(){
     this.classList.add('pushed')
+    
+}
+
+function operatorLight(){
+    document.querySelectorAll('.operator-lights-container div').forEach(op => op.classList.contains('light-up-operator')? op.classList.remove('light-up-operator'): console.log(op))
+    if(equalButtonPushed && !operratorButtonPushed) return
+    let lightMeUp = document.querySelector(`.operator-lights-container div[data-operator="${currentOperator}"]`)
+    lightMeUp.classList.add('light-up-operator')
     
 }
 
