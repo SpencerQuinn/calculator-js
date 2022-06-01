@@ -26,7 +26,7 @@ button{
     background-color: rgb(124 127 123);
     border-radius: 20px;
     width: 500px;
-    height: 400px;
+    height: 450px;
    
     
 }
@@ -37,21 +37,36 @@ button{
 }
 
 .display{
-    display: inline-block;
-    text-align: right;
-    height: 55px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 75px;
     border: 1px black solid;
     background-color: white;
     width: 400px;
     margin-bottom: 30px;
-    line-height: 10vh;
+    line-height: 30px;
     font-family: var(--calc--font);
-    font-size: 34px;
+    font-size: auto;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 30px;
     overflow: visible;
 }
+
+.display > *{
+    margin: 0;
+    padding-right: 5px;
+}
+
+.current-value{
+    font-size: 36px;
+    line-height: 45px;
+}
+
+
+
 
 .operator-lights-container{
     height: auto;
