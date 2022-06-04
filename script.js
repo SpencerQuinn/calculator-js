@@ -21,6 +21,7 @@ const add = (a,b) => a + b
 const sub = (a,b) => a - b
 const mult = (a,b) => a * b
 const dvd = (a,b) => a / b
+const exp = (a,b) => a**b
 
 
 
@@ -29,6 +30,7 @@ const operationsObj = {
     "-": sub,
     "*": mult,
     "/": dvd,
+    "^": exp,
 }
 
 
@@ -209,6 +211,8 @@ function squareRootHandler(){
     displayResult(result)
     
 }
+
+
 
 
 
