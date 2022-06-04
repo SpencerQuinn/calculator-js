@@ -82,6 +82,7 @@ button{
     text-align: center;
     font-size: 32px;
     font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 1px 1px rgb(43, 39, 39);
 }
 
 
@@ -118,14 +119,14 @@ button{
     width: 300px;
 }
 
-.operator-button{
+.operator-button, .delete-button{
     background-color: blue;
     width: 4em;
     height: 3em;
     transition: all .1s;
 }
 
-.number-button{
+.number-button, .decimal-button{
     background-color: aquamarine;
 }
 

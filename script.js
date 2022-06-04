@@ -1,9 +1,13 @@
 const display = document.querySelector('.current-value')
 const numberButtons = document.querySelectorAll('.number-button')
+const mainPad = document.querySelectorAll('.buttons.numeric > button')
 const operatorButtons = document.querySelectorAll('.operator-button')
 const clearButton = document.querySelector('.clear')
 const equalButton = document.querySelector('.equals')
-const decimalButton = document.querySelector('.dec')
+const decimalButton = document.querySelector('.decimal-button')
+const deleteButton = document.querySelector('[data-operator="delete"]')
+const squareRootButton = document.querySelector('[data-operator="square-root"]')
+
 
 
 let currentOperator = ""
@@ -37,14 +41,18 @@ operatorButtons.forEach(butt => butt.addEventListener('click', operatorPushHandl
 
 numberButtons.forEach(num => num.addEventListener('click', numberPushHandler))
 
-numberButtons.forEach(num => num.addEventListener('click', clickEffect))
+mainPad.forEach(num => num.addEventListener('click', clickEffect))
 
-numberButtons.forEach(num => num.addEventListener('transitionend', function(){
+mainPad.forEach(num => num.addEventListener('transitionend', function(){
     this.classList.remove('pushed')
 }))
 
 
 clearButton.addEventListener('click', clearButtonHandler)
+
+deleteButton.addEventListener('click', deleteButtonHandler)
+
+squareRootButton.addEventListener('click', squareRootHandler)
 
 equalButton.addEventListener('click', equalButtonHandler)
 
@@ -88,7 +96,14 @@ function clearButtonHandler(){
     equalButtonPushed = false
 }
 
+function deleteButtonHandler(){
+    if(equalButtonPushed || operratorButtonPushed) return
+    currVal = currVal.slice(0, currVal.length-1)
+    display.textContent = currVal
+}
+
 function operatorPushHandler(){
+
     
     if(equalButtonPushed){
         currentOperator = this.textContent
@@ -107,6 +122,12 @@ function operatorPushHandler(){
         renderLog()
         operatorLight()
         return
+    }
+    else if(currVal == 0 && currentOperator == "/"){
+            display.textContent = 'Numbskull'
+            setTimeout(clearButtonHandler, 500)
+            return
+        
     }
     prevVal = prevVal === '' ? currVal : performOperation(prevVal, currVal, currentOperator)
     displayResult(prevVal)
@@ -130,12 +151,19 @@ function numberPushHandler(event){
         display.textContent = currVal
         operratorButtonPushed = false
     }
-    else if(display.textContent.length == 9) return
+    else if(display.textContent.length == 9 || (event.target.textContent == "." && /\./g.test(currVal))) return
     currVal += event.target.textContent
     display.textContent = currVal
 }
 
+
+
 function equalButtonHandler(){
+    if(currVal == 0 && currentOperator == "/"){
+        display.textContent = 'Numbskull'
+        setTimeout(clearButtonHandler, 500)
+        return
+    }
     log.push(currVal, "=")
     renderLog()
     equalButtonPushed = true
@@ -171,6 +199,17 @@ function renderLog(){
     log.forEach(item => displayRender += `${item} `)
     document.querySelector('.previous-operations').textContent = displayRender
 }
+
+function squareRootHandler(){
+    if(display.textContent === "" || operratorButtonPushed) return
+    let value = Number(display.textContent)
+    let result = Math.round(Math.sqrt(value)*100)/100
+    currVal = result
+    prevVal = equalButtonPushed ? result : prevVal
+    displayResult(result)
+    
+}
+
 
 
 
