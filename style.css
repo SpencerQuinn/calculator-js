@@ -34,6 +34,7 @@ button{
 .display-operators{
     display: flex;
     gap: 10px;
+    align-items: center;
 }
 
 .display{
@@ -42,16 +43,15 @@ button{
     justify-content: space-between;
     align-items: flex-end;
     height: 75px;
-    border: 1px black solid;
-    background-color: white;
     width: 400px;
-    margin-bottom: 30px;
+    border: 1px black solid;
+
+    background-color: white;
+    margin: 30px 20px 30px;
     line-height: 30px;
     font-family: var(--calc--font);
     font-size: auto;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 30px;
+    
     overflow: visible;
 }
 
@@ -69,7 +69,7 @@ button{
 
 
 .operator-lights-container{
-    height: auto;
+    height: 100px;
     width: 100px;
     display: inline-flex;
     justify-content: space-between;
@@ -84,13 +84,6 @@ button{
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.top-light{
-    padding-top: 20%;
-}
-
-.bottom-light{
-    padding-bottom: 20%;
-}
 
 .light-up-operator{
     color: rgb(237, 224, 224);
