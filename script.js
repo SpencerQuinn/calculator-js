@@ -40,12 +40,17 @@ let equalButtonPushed = false
 
 operatorButtons.forEach(butt => butt.addEventListener('click', operatorPushHandler))
 
+document.addEventListener('keydown', function(e){
+    let clickThis = document.querySelector(`[data-keyID="${e.keyCode}"]`);
+    if(clickThis) clickThis.click()
+    
+})
 
 numberButtons.forEach(num => num.addEventListener('click', numberPushHandler))
 
-mainPad.forEach(num => num.addEventListener('click', clickEffect))
+document.querySelectorAll('button').forEach(num => num.addEventListener('click', clickEffect))
 
-mainPad.forEach(num => num.addEventListener('transitionend', function(){
+document.querySelectorAll('button').forEach(num => num.addEventListener('transitionend', function(){
     this.classList.remove('pushed')
 }))
 

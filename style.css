@@ -1,29 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 :root{
     --calc--font: 'Orbitron', sans-serif;
+    --ou--crimson: #5c0604;
+    --ou--cream: #f2ecce;
+    --ou--rasberry: #872657;
+    --ou--grey: #9a9681;
+    --ou--red: #e92032;
+    --ou--pink: #f2789b;
+
 }
 *, *::after, *::before{
     box-sizing: border-box;
 }
 
 body{
-    background-color: antiquewhite;
+    background-color: var(--ou--rasberry);
     display: flex;
     justify-content: center;
 }
 
 button{
-    border-style: none;
-    background-color: blue;
-    color: white;
+    border-style: solid;
+    border-color: var(--ou--grey);
+    border-radius: 3px;
     box-shadow: 3px 3px 0px black;
     font-size: 14px;
 }
 
 .calculator-body{
     margin-top: 50px;
-    border: 5px solid rgb(0, 0, 0);
-    background-color: rgb(124 127 123);
+    border: 5px solid;
+    border-color: var(--ou--cream);
+    background-color: var(--ou--crimson);
     border-radius: 20px;
     width: 500px;
     height: 450px;
@@ -46,7 +54,7 @@ button{
     width: 400px;
     border: 1px black solid;
 
-    background-color: white;
+    background-color: rgb(0, 0, 0);
     margin: 30px 20px 30px;
     line-height: 30px;
     font-family: var(--calc--font);
@@ -58,6 +66,7 @@ button{
 .display > *{
     margin: 0;
     padding-right: 5px;
+    color: var(--ou--cream);
 }
 
 .current-value{
@@ -119,28 +128,35 @@ button{
     width: 300px;
 }
 
-.operator-button, .delete-button{
-    background-color: blue;
+.operator-button, .delete-button, .square-root-button {
+    background-color: var(--ou--pink);
+    border-color: var(--ou--cream);
+    color: var(--ou--cream);
+    font-weight: bolder;
     width: 4em;
     height: 3em;
     transition: all .1s;
 }
 
-.number-button, .decimal-button{
-    background-color: aquamarine;
+.number-button{
+    background-color: var(--ou--cream);
+    color: var(--ou--crimson);
+
 }
 
 .number-button, .equals{
     width: 4em;
     height: 4em;
     transition: all .1s;
+    font-weight: 900;
 }
 
-.equals{
-    background-color: blue;
+.equals, #dec{
+    background-color: var(--ou--red);
+    color: var(--ou--cream);
 }
 
-.number-button.pushed, .operator-button.pushed, .equals.pushed{
+button.pushed{
     border: 1px white solid;
     transform: translate(2px, 2px);
     box-shadow: none;
