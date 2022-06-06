@@ -114,12 +114,12 @@ function operatorPushHandler(){
     
     if(equalButtonPushed){
         currentOperator = this.textContent
+        equalButtonPushed = false
         operratorButtonPushed = true
         operatorLight()
         log = ["ANS", currentOperator]
         currVal = ''
         renderLog()    
-        equalButtonPushed = false
         displayResult(prevVal)
         return
     }
@@ -191,7 +191,7 @@ function clickEffect(){
 
 function operatorLight(){
     document.querySelectorAll('.operator-lights-container div').forEach(op => op.classList.contains('light-up-operator')? op.classList.remove('light-up-operator'): op)
-    if(equalButtonPushed || !operratorButtonPushed) return
+    if(equalButtonPushed || !operratorButtonPushed || currentOperator == '^') return
     let lightMeUp = document.querySelector(`.operator-lights-container div[data-operator="${currentOperator}"]`)
     lightMeUp.classList.add('light-up-operator')
     
